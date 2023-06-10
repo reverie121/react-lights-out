@@ -84,7 +84,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   // DONE
   if (hasWon()) {
-    return (<h1>You Won</h1>);
+    return (<h1>Y<span className="o">o</span>u W<span className="o">o</span>n</h1>);
   }
 
   // make table board

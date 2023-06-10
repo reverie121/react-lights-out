@@ -1,11 +1,13 @@
 .Cell {
   height: 100px;
   width: 100px;
-  background-color: darkgray;
+  padding: 20px;
+  margin: 20px;
   cursor: pointer;
-  border-style: solid;
+  border-radius: 5px;
+  background-image: radial-gradient(grey, black, black);
 }
 
 .Cell-lit {
-  background-color: white;
+  background-image: radial-gradient(white, yellow, black, black);
 }
