@@ -28,22 +28,62 @@ import "./Board.css";
  **/
 
 function Board({ nrows, ncols, chanceLightStartsOn }) {
-  const [board, setBoard] = useState(createBoard());
+  const [board, setBoard] = useState(initializeBoard());
 
-  /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
+  /** create a board nrows high/ncols wide, each cell randomly lit or unlit
+   * THIS IS NOW LEGACY. NEW BOARD CREATION SYSTEM IMPLEMENTED BELOW
+   */
   // DONE: create array-of-arrays of true/false values
+  // function createBoard() {
+  //   let initialBoard = [];
+  //   for (let i = 0; i < nrows; i++) {
+  //     const newRow = [];
+  //     for (let i = 0; i < ncols; i++) {
+  //       newRow.push(Math.random() <= chanceLightStartsOn);
+  //     }
+  //     initialBoard.push(newRow);
+  //   }
+  //   return initialBoard;
+  // }
+
+  /** create a board nrows high/ncols wide, each cell unlit */
   function createBoard() {
     let initialBoard = [];
 
     for (let i = 0; i < nrows; i++) {
       const newRow = [];
       for (let i = 0; i < ncols; i++) {
-        newRow.push(Math.random() <= chanceLightStartsOn);
+        newRow.push(false);
       }
       initialBoard.push(newRow);
     }
 
     return initialBoard;
+  }
+
+  /** takes a new, unlit board and simulates clicking a new 
+   * random cell between 25 and 50 times */
+  function initializeBoard() {
+    let board = createBoard();
+    const randomIterations = 25 + Math.floor(Math.random() *26 );
+    console.log(randomIterations)
+    const flipCell = (y, x, board) => {
+      // if this coord is actually on board, flip it
+      if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
+        board[y][x] = !board[y][x];
+      }
+      
+    };
+    for (let i = 0; i <= randomIterations; i++) {
+      const y = Math.floor(Math.random() * nrows);
+      const x = Math.floor(Math.random() * ncols);
+      flipCell(y, x, board);
+      flipCell(y+1, x, board);
+      flipCell(y-1, x, board);
+      flipCell(y, x+1, board);
+      flipCell(y, x-1, board);
+    }
+    return board;
   }
 
   function hasWon() {
